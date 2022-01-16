@@ -14,7 +14,7 @@ class bot_starter(commands.Cog):
         self.bot = bot
         self.last_member = None
 
-    @bot.event
+    @commands.Cog.listener()  # this is a decorator for events/listeners
     async def on_guild_join(guild):
         general = find(lambda x: x.name == 'general', guild.text_channels)
         items = (
@@ -45,9 +45,9 @@ class bot_starter(commands.Cog):
             await bot.get_channel(general.id).send(embed=random.choice(items))
 
     # Bot is online
-    @bot.event
+    @commands.Cog.listener()  # this is a decorator for events/listeners
     async def on_ready(self):
-        commands_list = [c.name for c in self.client.commands]
+        commands_list = [c.name for c in self.bot.commands]
         print(commands_list)
         items = (
             [
@@ -68,39 +68,30 @@ class bot_starter(commands.Cog):
 
             ]
         )
-        await bot.get_channel().send(embed=random.choice(items))
+        await bot.get_channel(902599258857955348).send(embed=random.choice(items))
         # The first embed that's sent
-        em = discord.Embed(description=f"_**List**_ "f"\n")
-        # Change ID to 835219707506196500 VV (#To-do-Wew)
-        messages = await bot.get_channel().send(embed=em)
 
-        # Commands
-        @commands.command(aliases=["n"])
-        async def note(ctx, *, text=None):
-            notes = discord.Embed(description=messages.embeds[0].description + f"\n" + text)
-            await messages.edit(embed=notes)
-
-    # Custom bot status
-    @tasks.loop(seconds=40)
-    async def changepresence(self):
-        global x
-        total_members_count = len(bot.users)
-        game = iter(
-            [
-                f"Wew count: {total_members_count}",
-                "Need help? That's sad.",
-                "Are u bored? Then u should gamble and give us all your money! I mean you should gamble, that's fun...",
-                "There is an error in the system, weed should fix it ;)",
-                "Sure, u can get the help command. '1help' what did u think the command was?",
-                "Oi mate, whatcha yall doin tday? Is bri-ish now, get some tea boiz",
-            ]
-        )
-        for x in range(random.randint(1, 6)):
-            x = next(game)
-        await bot.change_presence(activity=discord.Game(name=x))
+        # Custom bot status
+        @tasks.loop(seconds=40)
+        async def changepresence(self):
+            global x
+            total_members_count = len(bot.users)
+            game = iter(
+                [
+                    f"Wew count: {total_members_count}",
+                    "Need help? That's sad.",
+                    "Are u bored? Then u should gamble and give us all your money! I mean you should gamble, that's fun...",
+                    "There is an error in the system, weed should fix it ;)",
+                    "Sure, u can get the help command. '1help' what did u think the command was?",
+                    "Oi mate, whatcha yall doin tday? Is bri-ish now, get some tea boiz",
+                ]
+            )
+            for x in range(random.randint(1, 6)):
+                x = next(game)
+            await bot.change_presence(activity=discord.Game(name=x))
 
     # Member joined server
-    @bot.event
+    @commands.Cog.listener()  # this is a decorator for events/listeners
     async def on_member_join(member):
         if member.bot:
             bot_role = discord.utils.get(member.guild.roles, name='Bot')
@@ -119,4 +110,5 @@ class bot_starter(commands.Cog):
                   f"Member: **#{member_count}**, ")
 
 
-bot.add_cog(bot_starter(bot))
+def setup(bot):  # a extension must have a setup function
+    bot.add_cog(bot_starter(bot))

@@ -38,10 +38,12 @@ async def setup1(ctx):
             q_channel = await guild.create_text_channel('quotes')
             print(q_channel.id)
 
+
 # The quote command
 @commands.command(aliases=["q"])
 async def quote(ctx, *, text):
     await bot.get_channel()
+
 
 # Member count command
 @commands.command()
@@ -49,10 +51,12 @@ async def members(ctx):
     id_s = bot.get_guild(764500927808798781)
     await ctx.send(f"# of Members: {id_s.member_count}")
 
-# Check bot's ping
+
+# Check bots ping
 @commands.command()
 async def ping(ctx):
     await ctx.send(f'**Pong!** {round(bot.latency * 1000)}ms ')
+
 
 # test with buttons
 """
@@ -145,6 +149,7 @@ async def pi(ctx, chour=None, cminute=None):
             await ctx.send(f"Wew bot will remind {chour}:{cminute}")
 """
 
+
 # Help command
 @commands.command()  # Help command, command list
 async def help(ctx, htype=None):
@@ -182,10 +187,41 @@ async def help(ctx, htype=None):
         help_gamble.add_field(name="Unknown:", value="``Unknown``")
 
 
+#   Server Information
+@commands.command(aliases=["server"])
+async def serverinfo(ctx):
+    name = str(ctx.guild.name)
+    description = str(ctx.guild.description)
+
+    owner = str(ctx.guild.owner)
+    server_id = str(ctx.guild.id)
+    region = str(ctx.guild.region)
+    member_count = str(ctx.guild.member_count)
+
+    icon = str(ctx.guild.icon_url)
+
+    embed = discord.Embed(
+        title=name + " Server Information",
+        description=description,
+        color=0x007011
+    )
+    embed.set_thumbnail(url=icon)
+    embed.add_field(name="Owner:", value=owner, inline=True)
+    embed.add_field(name="Server ID:", value=server_id, inline=True)
+    embed.add_field(name="Region:", value=region, inline=True)
+    embed.add_field(name="Member Count:", value=member_count, inline=True)
+    embed.set_thumbnail(url='https://cdn.discordapp.com/attachments/776904474458980364/785904953868550194/RoseCliff_'
+                            'Test_3.png')
+
+    await ctx.send(embed=embed)
+    print(f'{ctx.message.author} said - "!server"')
+
+
 def setup(bot):
     bot.add_command(help)
     bot.add_command(setup1)
     bot.add_command(quote)
+    bot.add_command(serverinfo)
     """    
     bot.add_command(pi)
     bot.add_command(p)
