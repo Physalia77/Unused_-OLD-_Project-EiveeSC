@@ -1,7 +1,6 @@
 import discord
 import datetime
 from datetime import datetime
-
 import self as self
 from discord.ext import commands, tasks
 from discord.ext.commands import bot
@@ -24,12 +23,13 @@ import module
 import youtube_dl
 from discord.ext.commands import MissingPermissions
 
+
 """THE KNIGHT BOT"""
 
 # Client/bot
 intents = discord.Intents.default()
 intents.members = True
-bot = commands.Bot(command_prefix='?', case_insensitive=True, intents=intents)
+bot = commands.Bot(command_prefix='?', case_insensitive=True, intents=intents, Intents=discord.Intents.all)
 frameinfo = getframeinfo(currentframe())
 traceback = True
 id_s = bot.get_guild(608966488136876032)
