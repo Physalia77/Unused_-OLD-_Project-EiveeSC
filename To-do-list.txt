@@ -2,3 +2,4 @@
 - Better logs to every eveny/command
 - Fix vc_commands.py commands and add more fail saves
 - Change all extansions to cogs 
+- Add folders for all command files
