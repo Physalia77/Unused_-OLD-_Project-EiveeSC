@@ -13,6 +13,7 @@ To-Do-List:
     discord_events.py:
         - Make it possible to disable/enable all commands/events other than necessary
         - Automatic create a log channel for mod related commands, extra commands to decide what will be logged in the #log channel
+        - Holidays messages
 
     main.py:
         - Make it possible to change the prefix for the users own choice
@@ -22,6 +23,10 @@ To-Do-List:
         - Change all extensions of all files to cogs and load the cogs instead of each command
         - Remove all "@commands.has_role('Staff')" inside moderator_command.py and instead just look if user got the permission
         to execute that command
+        - Optional ban/mute chat
+        - Temp mute command
+        - Temp ban command
+        - Blacklisted words
 
     vc_commands.py
         - Make it possible to disable/enable all commands other than necessary
