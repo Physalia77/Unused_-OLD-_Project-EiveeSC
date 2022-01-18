@@ -44,4 +44,4 @@ bot.load_extension("vc_commands")  # use name of python file here
 bot.load_extension("discord_events")  # use name of python file here
 
 print("Online")
-bot.run('OTAyNjA2MzM2NzgzNjgzNTg1.YXg3qA.9i8fxvVxNNoPLSifddKmNydT45I')
+bot.run('TOKEN')
