@@ -1,2 +1,46 @@
-- Add all moderator commands to moderator_command.py
-- Better logs to every eveny/command
+To-Do-List:
+    casino.py:
+        - Make it possible to disable/enable all commands other than necessary
+        - Change all extensions of all files to cogs and load the cogs instead of each command
+        - Better logs to every eveny/command
+        - Replace the bank.json file to a postgresql database instead
+
+    commands.py:
+        - Make it possible to disable/enable all commands other than necessary
+        - Change all extensions of all files to cogs and load the cogs instead of each command
+        - Better logs to every eveny/command
+
+    discord_events.py:
+        - Make it possible to disable/enable all commands/events other than necessary
+        - Automatic create a log channel for mod related commands, extra commands to decide what will be logged in the #log channel
+
+    main.py:
+        - Make it possible to change the prefix for the users own choice
+
+    moderator_command.py
+        - Better logs to every eveny/command
+        - Change all extensions of all files to cogs and load the cogs instead of each command
+        - Remove all "@commands.has_role('Staff')" inside moderator_command.py and instead just look if user got the permission
+        to execute that command
+
+    vc_commands.py
+        - Make it possible to disable/enable all commands other than necessary
+        - Better logs to every eveny/command
+        - Fail safe system for all vc_commands.py commands (and add disable/enable function)
+        - Change the Mute command, to instead giving user a role without any permission to talk it will remove the
+        permissions from the user to talk
+        - Change the ?Dice command inside casino.py, instead of giving the dice number right after the command it
+        will randomly change emojis of numbers from 1 to 6 and then decide what number the dice lands on after X amount
+        of seconds. (and add disable/enable function to all casino.py related commands)
+
+    xp_system.py
+        - Create a XP system (disable/enable function(maybe connect the xp system to the economy system,
+        for example you maybe can get a money chest every 10 levels you rank up with a random ))
+        - Better logs to every eveny/command
+
+other:
+    - Create a store and add donation credit, also commands to find that
+
+
+Done:
+    - Add all moderator commands to moderator_command.py
