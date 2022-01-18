@@ -46,4 +46,5 @@ Done:
     - Add all moderator commands to moderator_command.py
 
 
-
+Take insporation from this github https://github.com/citra-emu/discord-bot
+On how to set up README.md and folders/files names for easy understanding.
