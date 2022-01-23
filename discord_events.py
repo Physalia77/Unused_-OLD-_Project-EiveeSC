@@ -15,12 +15,12 @@ class bot_starter(commands.Cog):
         self.last_member = None
 
     @commands.Cog.listener()  # this is a decorator for events/listeners
-    async def on_guild_join(guild):
+    async def on_guild_join(self, guild):
         general = find(lambda x: x.name == 'general', guild.text_channels)
         items = (
             [
                 discord.Embed(
-                    desscription=f"Really? I am not allowed to sleep or what tf is the problem!? \n \n **Ding dong pong there is my fucking ping:** {round(bot.latency * 1000)} ms",
+                    desscription=f"Hi everyone, I'm {self.bot} {round(bot.latency * 1000)} ms",
                     color=0x3498DB),
                 discord.Embed(description="ew", color=0x3498DB),
                 discord.Embed(description="sooo why am I here?", color=0x3498DB),
@@ -92,7 +92,7 @@ class bot_starter(commands.Cog):
 
     # Member joined server
     @commands.Cog.listener()  # this is a decorator for events/listeners
-    async def on_member_join(member):
+    async def on_member_join(self, member):
         if member.bot:
             bot_role = discord.utils.get(member.guild.roles, name='Bot')
             await member.add_roles(bot_role)

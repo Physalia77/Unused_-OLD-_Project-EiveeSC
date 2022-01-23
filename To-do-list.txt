@@ -14,6 +14,7 @@ To-Do-List:
         - Make it possible to disable/enable all commands/events other than necessary
         - Automatic create a log channel for mod related commands, extra commands to decide what will be logged in the #log channel
         - Holidays messages
+        - Rewrite all messages for the events to make it more fitting for the causal people
 
     main.py:
         - Make it possible to change the prefix for the users own choice
