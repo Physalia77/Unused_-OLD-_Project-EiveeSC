@@ -216,39 +216,6 @@ class c_cog(commands.Cog):
         await ctx.send(embed=embed)
         print(f'{ctx.message.author} said - "!server"')
 
-    @commands.command()
-    async def remind(self, ctx, time, *, task):
-        def convert(time):
-            pos = ['s', 'm', 'h', 'd']
-
-            time_dict = {"s": 1, "m": 60, "h": 3600, "d": 3600 * 24}
-
-            unit = time[-1]
-
-            if unit not in pos:
-                return -1
-            try:
-                val = int(time[:-1])
-            except:
-                return -2
-
-            return val * time_dict[unit]
-
-        convert_time = convert(time)
-
-        if convert_time == -1:
-            await ctx.send("You didn't answer the time correctly")
-            return
-        if convert_time == -2:
-            await ctx.send("The time most be an integer")
-            return
-        await ctx.send(f"Started reminder for **{task}** and will last **{time}**.")
-
-        await asyncio.sleep(convert_time)
-        await ctx.send(f"{ctx.author.mention} your reminder for {task} has finished!")
-
-    @commands.command()
-    async def clock(self, ctx, clock: int = None):
 
 
 def setup(bot):
