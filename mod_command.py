@@ -247,15 +247,12 @@ class mod_cog(commands.Cog):
         await ctx.send(f"{amount} messages deleted!", delete_after=5)
         print(f"{amount} messages deleted!")
 
+    """
     @commands.command(name='r')
     async def r(self, ctx, *, reason=None):
         await bot.get_channel(784414610027446292).send(embed=discord.Embed(description=f"{ctx.message.author} "
                                                                                        f"\n **Reported:** " + reason))
-
-    # Resume
-    @commands.command(aliases=["exit", "kill yourself", "sleep"])
-    async def logout(self):
-        await bot.logout()
+    """
 
 
 def setup(bot):

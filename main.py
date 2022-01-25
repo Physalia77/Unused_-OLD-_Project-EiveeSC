@@ -22,7 +22,7 @@ import os.path
 import module
 import youtube_dl
 from discord.ext.commands import MissingPermissions
-
+import time
 
 """THE KNIGHT BOT"""
 
@@ -34,15 +34,38 @@ frameinfo = getframeinfo(currentframe())
 traceback = True
 id_s = bot.get_guild(608966488136876032)
 dir_path = os.path.dirname(os.path.realpath(__file__))
+bot.remove_command('help')
+extensions = ['casino', 'commands', 'vc_commands', 'discord_events', 'mod_command']
 
 # Load in stuff
 os.chdir(dir_path)
-bot.remove_command('help')
-bot.load_extension("casino")  # use name of python file here
-bot.load_extension("commands")  # use name of python file here
-bot.load_extension("vc_commands")  # use name of python file here
-bot.load_extension("discord_events")  # use name of python file here
-bot.load_extension("mod_command")  # use name of python file here
+print(discord.__version__)
 
-print("Online")
-bot.run('OTAyNjA2MzM2NzgzNjgzNTg1.YXg3qA.giio_E69ojuBkImNnpKIboKSVQ0')
+
+@bot.command()
+async def load(ctx, extension):
+    try:
+        bot.load_extension(extension)
+        print(f'loaded. {format(extension)}')
+    except Exception as error:
+        print(f'{format(extension)} cannot be loaded. [{format(error)}]')
+
+
+@bot.command()
+async def unload(ctx, extension):
+    try:
+        bot.unload_extension(extension)
+        print(f'Unloaded. {format(extension)}')
+    except Exception as error:
+        print(f'{format(extension)} cannot be unloaded. [{format(error)}]')
+
+
+if __name__ == '__main__':
+    for extension in extensions:
+        try:
+            bot.load_extension(extension)
+        except Exception as error:
+            print(f'{format(extension)} cannot be loaded. [{format(error)}]')
+
+    print("Online")
+    bot.run('OTAyNjA2MzM2NzgzNjgzNTg1.YXg3qA.PbZd7LqX5WPNpa3MOyxtyb2Wwas')

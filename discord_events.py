@@ -51,9 +51,7 @@ class bot_starter(commands.Cog):
         print(commands_list)
         items = (
             [
-                discord.Embed(
-                    desscription=f"Really? I am not allowed to sleep or what tf is the problem!? \n \n **Ding dong pong there is my fucking ping:** {round(bot.latency * 1000)} ms",
-                    color=0x3498DB),
+                discord.Embed(desscription=f"Really? I am not allowed to sleep or what tf is the problem!? \n \n **Ding dong pong there is my fucking ping:** {round(bot.latency * 1000)} ms", color=0x3498DB),
                 discord.Embed(description="I'm back", color=0x3498DB),
                 discord.Embed(description="I am not doing this for you", color=0x3498DB),
                 discord.Embed(description="Guess who is back? Exactly, no one", color=0x3498DB),
@@ -62,10 +60,7 @@ class bot_starter(commands.Cog):
                 discord.Embed(description="What tf am I doing here", color=0x3498DB),
                 discord.Embed(description="Duuuuuuuude, I am wake (AGAIN)", color=0x3498DB),
                 discord.Embed(description="Damn, back again from the dead", color=0x3498DB),
-                discord.Embed(
-                    description="I must be Jesus or something after all these times I came back from the dead",
-                    color=0x3498DB)
-
+                discord.Embed(description="I must be Jesus or something after all these times I came back from the dead", color=0x3498DB)
             ]
         )
         await bot.get_channel(902599258857955348).send(embed=random.choice(items))
