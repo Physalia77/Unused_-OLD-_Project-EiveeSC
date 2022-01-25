@@ -45,4 +45,4 @@ bot.load_extension("discord_events")  # use name of python file here
 bot.load_extension("mod_command")  # use name of python file here
 
 print("Online")
-bot.run('OTAyNjA2MzM2NzgzNjgzNTg1.YXg3qA.giio_E69ojuBkImNnpKIboKSVQ0')
+bot.run('TOKEN')
