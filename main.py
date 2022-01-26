@@ -66,4 +66,4 @@ if __name__ == '__main__':
             print(f'{format(extension)} cannot be loaded. [{format(error)}]')
 
     print("Online")
-    bot.run('OTAyNjA2MzM2NzgzNjgzNTg1.YXg3qA.WXmaMdQUEVXYQnhBQMGz5dO4c6U')
+    bot.run('TOKEN')
