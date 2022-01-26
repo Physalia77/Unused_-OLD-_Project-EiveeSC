@@ -247,6 +247,11 @@ class mod_cog(commands.Cog):
         await ctx.send(f"{amount} messages deleted!", delete_after=5)
         print(f"{amount} messages deleted!")
 
+    # Check bots ping
+    @commands.command()
+    async def ping(self, ctx):
+        await ctx.send(f'**Pong!** {round(bot.latency * 1000)}ms ')
+
     """
     @commands.command(name='r')
     async def r(self, ctx, *, reason=None):

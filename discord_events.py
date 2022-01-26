@@ -47,8 +47,9 @@ class bot_starter(commands.Cog):
     # Bot is online
     @commands.Cog.listener()  # this is a decorator for events/listeners
     async def on_ready(self):
-        commands_list = [c.name for c in self.bot.commands]
-        print(commands_list)
+        commands_list = [c.name for c in bot.commands]
+        print(discord.__version__, f'\n {commands_list}')
+
         items = (
             [
                 discord.Embed(desscription=f"Really? I am not allowed to sleep or what tf is the problem!? \n \n **Ding dong pong there is my fucking ping:** {round(bot.latency * 1000)} ms", color=0x3498DB),

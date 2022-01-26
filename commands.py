@@ -53,101 +53,7 @@ class c_cog(commands.Cog):
         id_s = bot.get_guild(764500927808798781)
         await ctx.send(f"# of Members: {id_s.member_count}")
 
-    # Check bots ping
-    @commands.command()
-    async def ping(self, ctx):
-        await ctx.send(f'**Pong!** {round(bot.latency * 1000)}ms ')
-
     # test with buttons
-    """
-    @commands.command()
-    async def test(ctx):
-        # Make a row of buttons
-        row_of_buttons = ActionRow(
-            Button(
-                style=ButtonStyle.green,
-                label="Green button",
-                custom_id="green"
-            ),
-            Button(
-                style=ButtonStyle.red,
-                label="Red button",
-                custom_id="red"
-            )
-        )
-        # Send a message with buttons
-        msg = await ctx.send(
-            "This message has buttons!",
-            components=[row_of_buttons]
-        )
-    
-        # Wait for someone to click on them
-        def check(inter):
-            return inter.message.id == msg.id
-    
-        inter = await ctx.wait_for_button_click(check)
-        # Send what you received
-        button_text = inter.clicked_button.label
-        await inter.reply(f"Button: {button_text}")
-    """
-    """
-    def seconds_until(hours, minutes):
-        given_time = datetime.time(hours, minutes)
-        now = datetime.datetime.now()
-        future_exec = datetime.datetime.combine(now, given_time)
-        if (future_exec - now).days < 0:  # If we are past the execution, it will take place tomorrow
-            future_exec = datetime.datetime.combine(now + datetime.timedelta(days=1), given_time)  # days always >= 0
-    
-        return (future_exec - now).total_seconds()
-    
-    slash = InteractionClient(bot)
-    
-    @commands.command()
-    async def p(ctx, chour=None, cminut=None):
-        if chour is None:
-            await ctx.send("You must give hour and minute in a 24 hour clock time")
-        elif cminut is None:
-            await ctx.send("You must give hour and minute in a 24 hour clock time")
-        else:
-            @tasks.loop(seconds=5)
-            async def for_ever_reminder():
-                while True:
-                    await asyncio.sleep(
-                        seconds_until(chour, cminut))  # Will stay here until your clock says {chour}{cminut}
-                    channel = bot.get_channel(897483967480074250)
-                    await channel.send(f"{ctx.message.author.mention}")
-                    await asyncio.sleep(
-                        60)  # Practical solution to ensure that the print isn't spammed as long as it is 11:58
-    
-            scheduler = AsyncIOScheduler()
-            scheduler.add_job(for_ever_reminder, CronTrigger(hour=chour, minute=cminut, second="0", ))
-            scheduler.start()
-            await ctx.send("**{0.user}".format(bot) + f"** will remind {chour}:{cminut}")
-    
-    @commands.command()
-    async def pi(ctx, chour=None, cminute=None):
-        if chour is None:
-            await ctx.send("You must give hour and minute in a 24 hour clock time")
-        elif cminute is None:
-            await ctx.send("You must give hour and minute in a 24 hour clock time")
-        else:
-            async def for_ever_reminder():
-                scheduler = AsyncIOScheduler()
-                scheduler.add_job(for_ever_reminder, CronTrigger(hour=chour, minute=cminute, second="0", ))
-                scheduler.start()
-    
-                @tasks.loop(minutes=cminute + chour * 60)
-                async def start():
-                    while True:
-                        await asyncio.sleep(
-                            seconds_until(chour, cminute))  # Will stay here until your clock says {chour}{cminut}
-                        channel = bot.get_channel(897483967480074250)
-                        await channel.send(f"{ctx.message.author.mention}")
-                        await asyncio.sleep(
-                            60)  # Practical solution to ensure that the print isn't spammed as long as it is 11:58
-    
-                await ctx.send(f"Wew bot will remind {chour}:{cminute}")
-    """
 
     # Help command
     @commands.command()  # Help command, command list
@@ -216,6 +122,10 @@ class c_cog(commands.Cog):
         await ctx.send(embed=embed)
         print(f'{ctx.message.author} said - "!server"')
 
+    @commands.command()
+    async def time(self, ctx, *, clock: str = None):
+        if clock is None:
+            await ctx.send("You must give a clock time")
 
 
 def setup(bot):
