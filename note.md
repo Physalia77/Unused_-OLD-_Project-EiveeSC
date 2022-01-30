@@ -1,4 +1,4 @@
-# Knight Bot Notes & Ideas
+# Eivee Bot Notes & Ideas
 
 Profile pcitures:
 **Not final profile pictures!!!**

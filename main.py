@@ -24,8 +24,11 @@ from discord.ext.commands import MissingPermissions
 import time
 import threading
 from itertools import cycle
+# pip install pyfiglet
+import pyfiglet
+from termcolor import colored
 
-"""Project: Eive-SC/(Source Code)"""
+"""Project: Eivee-SC/(Source Code)"""
 
 # Client/bot
 intents = discord.Intents.default()
@@ -98,14 +101,6 @@ async def change_status():
         await asyncio.sleep()
 """
 
-
-
-
-
-
-
-
-
 if __name__ == '__main__':
     for extension in extensions:
         try:
@@ -114,8 +109,21 @@ if __name__ == '__main__':
             print(f'{format(extension)} cannot be loaded. [{format(error)}]')
 
     commands_list = [c.name for c in bot.commands]
-    print(f'\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=')
+    print(f'\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=')
+
+    colors = ['red', 'yellow', 'green', 'cyan', 'blue', 'magenta']
+    ascii_banner = pyfiglet.figlet_format("EIVEE")
+    for color in colors:
+        print(colored(ascii_banner, color), end="")
+    print()
+    print(colored(ascii_banner, 'magenta'))
+    print(f'\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=')
     print(f'\nCommand List: {commands_list}')
 
+
+
+
+
+
     """bot.loop.create_task((change_status()))"""
-    bot.run('')
+    bot.run('OTAyNjA2MzM2NzgzNjgzNTg1.YXg3qA.FhIoGlay1XnJgUx8WTdX_BXYs_o')
