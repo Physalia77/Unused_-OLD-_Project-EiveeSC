@@ -259,6 +259,16 @@ class mod_cog(commands.Cog):
                                                                                        f"\n **Reported:** " + reason))
     """
 
+    @commands.command()
+    async def changeprefix(self, ctx, prefix):
+        with open('prefixes.json', 'r') as f:
+            prefixes = json.load(f)
+
+        prefixes[str(ctx.guild.id)] = prefix
+
+        with open('prefixes.json', 'w') as f:
+            json.dump(prefixes, f, indent=4)
+
 
 def setup(bot):
     bot.add_cog(mod_cog(bot))
