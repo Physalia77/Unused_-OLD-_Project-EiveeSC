@@ -1,3 +1,4 @@
+import discord
 import datetime
 from datetime import datetime
 import self as self
@@ -72,7 +73,7 @@ async def load(ctx, extension):
         bot.load_extension(extension)
         print(f'loaded. {format(extension)}')
     except Exception as error:
-        print(f'{format(extension)} cannot be loaded. [{format(error)}]')
+        print(colored(f'{format(extension)} cannot be loaded. [{format(error)}]', 'red'))
 
 
 @bot.command()
@@ -81,7 +82,7 @@ async def unload(ctx, extension):
         bot.unload_extension(extension)
         print(f'Unloaded. {format(extension)}')
     except Exception as error:
-        print(f'{format(extension)} cannot be unloaded. [{format(error)}]')
+        print(colored(f'{format(extension)} cannot be unloaded. [{format(error)}]', 'red'))
 
 
 """
@@ -106,7 +107,7 @@ if __name__ == '__main__':
         try:
             bot.load_extension(extension)
         except Exception as error:
-            print(f'{format(extension)} cannot be loaded. [{format(error)}]')
+            print(colored(f'{format(extension)} cannot be loaded. [{format(error)}]', 'red'))
 
     commands_list = [c.name for c in bot.commands]
     print(f'\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=')
@@ -116,14 +117,8 @@ if __name__ == '__main__':
     for color in colors:
         print(colored(ascii_banner, color), end="")
     print()
-    print(colored(ascii_banner, 'magenta'))
     print(f'\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=')
     print(f'\nCommand List: {commands_list}')
 
-
-
-
-
-
     """bot.loop.create_task((change_status()))"""
-    bot.run('TOKEN')
+    bot.run('OTAyNjA2MzM2NzgzNjgzNTg1.YXg3qA.vY09OR3vQ1_D709fwIW1IyYTpwU')

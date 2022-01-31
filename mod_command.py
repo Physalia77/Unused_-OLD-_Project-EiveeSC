@@ -3,8 +3,8 @@ from main import *
 
 
 class mod_cog(commands.Cog):
-    def init(self, Bot):
-        pass
+    def __init__(self, Bot):
+        self.bot = Bot
 
     # Moderator commands
     # Kick
@@ -261,12 +261,12 @@ class mod_cog(commands.Cog):
 
     @commands.command()
     async def changeprefix(self, ctx, prefix):
-        with open('prefixes.json', 'r') as f:
+        with open('../json/prefixes.json', 'r') as f:
             prefixes = json.load(f)
 
         prefixes[str(ctx.guild.id)] = prefix
 
-        with open('prefixes.json', 'w') as f:
+        with open('../json/prefixes.json', 'w') as f:
             json.dump(prefixes, f, indent=4)
 
 

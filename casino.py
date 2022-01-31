@@ -4,6 +4,8 @@ from main import *
 """"Bank"""
 
 
+# Load Cogs
+
 async def open_account(user):
     users = await get_bank_data()
 
@@ -28,8 +30,7 @@ async def open_account(user):
 
 
 async def get_bank_data():
-    with open("bank.json"
-              "", 'r') as f:
+    with open("bank.json", 'r') as f:
         users = json.load(f)
     return users
 
@@ -39,8 +40,7 @@ async def update_bank(user, change=0, mode="Wallet"):
 
     users[str(user.id)][mode] += change
 
-    with open("bank.json"
-              "", 'w') as f:
+    with open("bank.json", 'r') as f:
         json.dump(users, f)
     bal = [users[str(user.id)]["Wallet"], users[str(user.id)]["Bank"], users[str(user.id)]["Wins"],
            users[str(user.id)]["Earned"], users[str(user.id)]["Losses"], users[str(user.id)]["Lost"]]

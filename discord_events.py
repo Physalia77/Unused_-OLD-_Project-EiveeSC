@@ -22,12 +22,12 @@ class bot_starter(commands.Cog):
         print(
             f"\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n \n{self.bot.user.name} joined *{guild.name}* \n   Server ID: {guild.id} \n   Amount of members: {len(guild.members)}")
 
-        with open('prefixes.json', 'r') as f:
+        with open('../json/prefixes.json', 'r') as f:
             prefixes = json.load(f)
 
         prefixes[str(guild.id)] = '?'
 
-        with open('prefixes.json', 'w') as f:
+        with open('../json/prefixes.json', 'w') as f:
             json.dump(prefixes, f, indent=4)
 
         join_bed = discord.Embed(title="\n",
@@ -68,12 +68,12 @@ class bot_starter(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
-        with open('prefixes.json', 'r') as f:
+        with open('../json/prefixes.json', 'r') as f:
             prefixes = json.load(f)
 
         prefixes.pop(str(guild.id))
 
-        with open('prefixes.json', 'w') as f:
+        with open('../json/prefixes.json', 'w') as f:
             json.dump(prefixes, f, indent=4)
 
     # Bot is online

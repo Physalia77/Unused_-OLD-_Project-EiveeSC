@@ -6,12 +6,12 @@ All commands for The Knight Bot
 
 
 class c_cog(commands.Cog):
-    def init(self, Bot):
-        pass
+    def __init__(self, Bot):
+        self.bot = Bot
 
     # Commands
     # Setup command
-    @commands.command(aliases=["setup"])
+    @commands.command(name="setup1", aliases=["setup"])
     async def setup1(self, ctx):
         guild = ctx.guild
         server_id = ctx.message.guild.id
@@ -42,6 +42,7 @@ class c_cog(commands.Cog):
                 q_channel = await guild.create_text_channel('quotes')
                 print(q_channel.id)
 
+    """    
     # The quote command
     @commands.command(aliases=["q"])
     async def quote(self, ctx, *, text):
@@ -52,48 +53,29 @@ class c_cog(commands.Cog):
     async def members(self, ctx):
         id_s = bot.get_guild(764500927808798781)
         await ctx.send(f"# of Members: {id_s.member_count}")
+    """
 
     # test with buttons
 
     # Help command
-    @commands.command()  # Help command, command list
-    async def help(self, ctx, htype=None):
-        if htype is None:
-            help0 = discord.Embed(title=f"Help page:",
-                                  description=f"Im sorry u need help.",
-                                  color=discord.Color.purple())
-            help1 = discord.Embed(title=f"Help page:",
-                                  description=f"Welcome to the help page, be specific with what you need help with by using one of the folders command below.",
-                                  color=discord.Color.purple())
-            help1.add_field(name="Help with gamble", value="``?help gamble``")
-            help1.add_field(name="Unknown", value="``Unknown``")
-            help1.add_field(name="Unknown", value="``Unknown``")
-            help1.add_field(name="Unknown", value="``Unknown``")
-            help1.add_field(name="Unknown", value="``Unknown``")
-            help1.add_field(name="Unknown", value="``Unknown``")
-            help1.timestamp = datetime.utcnow()
-            help1.set_footer(text='\u200b')
-            message = await ctx.send(embed=help0)
-
-            await asyncio.sleep(3)
-            await message.edit(embed=help1)
-        elif htype == "casino":
-            help_gamble = discord.Embed(title=f"Gamble help section",
-                                        description=f"In TWG we got a our own gamble system with custom commands and prizes!",
-                                        color=discord.Color.purple())
-            help_gamble.add_field(name="Check bank:", value="``?balance``")
-            help_gamble.add_field(name="Gamble stats:", value="``?statistics``")
-            help_gamble.add_field(name="Transfer coins to user:", value=f"``?transfer``")
-            help_gamble.add_field(name="Play slot machines:", value="``?slot <bet>``")
-            help_gamble.add_field(name="Play dice gamble:", value="``?dice <dice number> <bet>``")
-            help_gamble.add_field(name="Move coins to bank:", value="``?deposit <amount>``")
-            help_gamble.add_field(name="Move coins to wallet:", value="``?withdraw <amount>``")
-            help_gamble.add_field(name="Unknown:", value="``Unknown``")
-            help_gamble.add_field(name="Unknown:", value="``Unknown``")
-            await ctx.send(embed=help_gamble)
+    @commands.command(description=f"Help page for all related topics you could need help with around Eivee")  # Help command, command list
+    async def help(self, ctx):
+        with open('prefixes.json', 'r') as f:
+            prefixes = json.load(f)
+        embed = discord.Embed(title="Eivee's help command",
+                              description=f" page for all related topics you could need help with around {self.bot.user.name}", color=0x3457db)
+        for command in bot.walk_commands():
+            description = command.description
+            if not description or description is None or description == "":
+                description = 'No description provided'
+            embed.add_field(
+                name=f"`{prefixes[str(ctx.guild.id)]}{command.name}{command.signature if command.signature is not None else ''}`", value=description)
+            embed.timestamp = datetime.utcnow()
+            embed.set_footer(text='\u200b')
+            await ctx.send(embed=embed)
 
     #   Server Information
-    @commands.command(aliases=["server"])
+    @commands.command(name="serverinfo", aliases=["server", "sinfo"])
     async def serverinfo(self, ctx):
         name = str(ctx.guild.name)
         description = str(ctx.guild.description)
@@ -122,10 +104,13 @@ class c_cog(commands.Cog):
         await ctx.send(embed=embed)
         print(f'{ctx.message.author} said - "!server"')
 
+
+    """
     @commands.command()
     async def time(self, ctx, *, clock: str = None):
         if clock is None:
             await ctx.send("You must give a clock time")
+    """
 
 
 def setup(bot):
