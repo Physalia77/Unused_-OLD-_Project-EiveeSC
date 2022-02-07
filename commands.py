@@ -5,7 +5,14 @@ All commands for The Knight Bot
 """
 
 
-class c_cog(commands.Cog):
+def get_prefix(message):
+    with open('prefixes.json', 'r') as f:
+        prefixes = json.load(f)
+
+    return prefixes[str(message.guild.id)]
+
+
+class cogs(commands.Cog):
     def __init__(self, Bot):
         self.bot = Bot
 
@@ -13,6 +20,9 @@ class c_cog(commands.Cog):
     # Setup command
     @commands.command(name="setup1", aliases=["setup"])
     async def setup1(self, ctx):
+        with open('prefixes.json', 'r') as f:
+            prefixes = json.load(f)
+        print(f'{datetime.now()}: {ctx.message.author} executed command - {prefixes[str(ctx.guild.id)]}{ctx.invoked_with}')
         guild = ctx.guild
         server_id = ctx.message.guild.id
         for guild in bot.guilds:
@@ -58,6 +68,7 @@ class c_cog(commands.Cog):
     # test with buttons
 
     # Help command
+    """ 
     @commands.command(description=f"Help page for all related topics you could need help with around Eivee")  # Help command, command list
     async def help(self, ctx):
         with open('prefixes.json', 'r') as f:
@@ -72,11 +83,15 @@ class c_cog(commands.Cog):
                 name=f"`{prefixes[str(ctx.guild.id)]}{command.name}{command.signature if command.signature is not None else ''}`", value=description)
             embed.timestamp = datetime.utcnow()
             embed.set_footer(text='\u200b')
-            await ctx.send(embed=embed)
+        await ctx.send(embed=embed)
+    """
 
     #   Server Information
     @commands.command(name="serverinfo", aliases=["server", "sinfo"])
     async def serverinfo(self, ctx):
+        with open('prefixes.json', 'r') as f:
+            prefixes = json.load(f)
+        print(f'{datetime.now()}: {ctx.message.author} executed command - {prefixes[str(ctx.guild.id)]}{ctx.invoked_with}')
         name = str(ctx.guild.name)
         description = str(ctx.guild.description)
 
@@ -90,28 +105,29 @@ class c_cog(commands.Cog):
         embed = discord.Embed(
             title=name + " Server Information",
             description=description,
-            color=0x007011
+            color=0x3457db
         )
         embed.set_thumbnail(url=icon)
         embed.add_field(name="Owner:", value=owner, inline=True)
         embed.add_field(name="Server ID:", value=server_id, inline=True)
         embed.add_field(name="Region:", value=region, inline=True)
         embed.add_field(name="Member Count:", value=member_count, inline=True)
-        embed.set_thumbnail(
-            url='https://cdn.discordapp.com/attachments/776904474458980364/785904953868550194/RoseCliff_'
-                'Test_3.png')
 
         await ctx.send(embed=embed)
-        print(f'{ctx.message.author} said - "!server"')
 
+    def job(self):
+        print("I'm working...")
 
-    """
     @commands.command()
     async def time(self, ctx, *, clock: str = None):
+        with open('prefixes.json', 'r') as f:
+            prefixes = json.load(f)
+        print(f'{datetime.now()}: {ctx.message.author} executed command - {prefixes[str(ctx.guild.id)]}{ctx.invoked_with}')
         if clock is None:
             await ctx.send("You must give a clock time")
-    """
+        else:
+            schedule.every().day.at(clock).do(job)
 
 
 def setup(bot):
-    bot.add_cog(c_cog(bot))
+    bot.add_cog(cogs(bot))

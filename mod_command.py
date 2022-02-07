@@ -2,65 +2,52 @@
 from main import *
 
 
-class mod_cog(commands.Cog):
+class cogs(commands.Cog):
     def __init__(self, Bot):
         self.bot = Bot
+    with open('prefixes.json', 'r') as f:
+        prefixes = json.load(f)
 
     # Moderator commands
     # Kick
     @commands.command(name='kick')
     @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, member: discord.Member = None, *, reason=None):
-        Staff = discord.utils.get(ctx.guild.roles, name='Staff')
-        Owner = discord.utils.get(ctx.guild.roles, name='Chairperson')
+        with open('prefixes.json', 'r') as f:
+            prefixes = json.load(f)
+        print(
+            f'{datetime.now()}: {ctx.message.author} executed command - {prefixes[str(ctx.guild.id)]}{ctx.invoked_with}')
 
-        if member == None:
-            return await ctx.message.channel.send(
+        if member is None:
+            await ctx.message.channel.send(
                 embed=discord.Embed(
                     description=f'**{ctx.message.author}**, please mention somebody to kick.', color=0xFFC200))
 
-        if member == ctx.message.author:
-            return await ctx.message.channel.send(
+        elif member == ctx.message.author:
+            await ctx.message.channel.send(
                 embed=discord.Embed(
-                    description=f"**{ctx.message.author}**, you cannot kick yourself, silly.", color=0xFFC200))
+                    description=f"**{ctx.message.author}**, you cannot kick yourself.", color=0xFFC200))
 
-        if member.bot:
-            if Owner in member.roles:
-                log_channel = bot.get_channel(902599258857955348)
-                await member.kick()
-                log = discord.Embed(
-                    description='User **' + member.display_name + f'** has been kicked. \n **Reason:** {reason}',
-                    color=0xf30000)
-                await ctx.send(embed=log)
-                await log_channel.send(embed=log)
-            else:
-                return await ctx.message.channel.send(
-                    embed=discord.Embed(
-                        description=f"You can not kick **" + format(member) + "** bots.".format(member),
-                        color=0xFFC200))
-
-        if Staff in member.roles:
-            return await ctx.message.channel.send(
+        elif member == member.bot:
+            await ctx.message.channel.send(
                 embed=discord.Embed(
-                    description=f"**{ctx.message.author}**, you can't kick another staff member. :warning:",
+                    description=f"You can not kick **" + format(member) + "** bots.".format(member),
                     color=0xFFC200))
-
-        if member.dm_channel is None:
-            await member.create_dm()
-        await member.dm_channel.send(
-            embed=discord.Embed(
-                description=f'You have been kicked from **{ctx.guild}** by **{ctx.message.author}**. \n '
-                            f'**Reason:** {reason} ', color=0xf30000))
-        log_channel = bot.get_channel(902599258857955348)
-        await member.kick()
-        log = discord.Embed(
-            description='User **' + member.display_name + f'** has been kicked by **{ctx.message.author}**'
-                                                          f'. \n **Reason:** {reason}',
-            color=0xf30000)
-        await ctx.send(embed=log)
-        await log_channel.send(embed=log)
-        print(
-            'User **' + member.display_name + f'** has been kicked by **{ctx.message.author}**. \n **Reason:** {reason}')
+        else:
+            if member.dm_channel is None:
+                await member.create_dm()
+            await member.dm_channel.send(
+                embed=discord.Embed(
+                    description=f'You have been kicked from **{ctx.guild}** by **{ctx.message.author}**. \n '
+                                f'**Reason:** {reason} ', color=0xf30000))
+            await member.kick()
+            log = discord.Embed(
+                description='User **' + member.display_name + f'** has been kicked by **{ctx.message.author}**'
+                                                              f'. \n **Reason:** {reason}',
+                color=0xf30000)
+            await ctx.send(embed=log)
+            print(
+                'User **' + member.display_name + f'** has been kicked by **{ctx.message.author} from guild {ctx.guild}**. \n **Reason:** {reason}')
 
     @kick.error
     async def kick_error(self, ctx, error):
@@ -73,6 +60,11 @@ class mod_cog(commands.Cog):
     @commands.command(name='ban')
     @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, member: discord.Member = None, *, reason=None):
+        with open('prefixes.json', 'r') as f:
+            prefixes = json.load(f)
+        print(
+            f'{datetime.now()}: {ctx.message.author} executed command - {prefixes[str(ctx.guild.id)]}{ctx.invoked_with}')
+
         Staff = discord.utils.get(ctx.guild.roles, name='Staff')
 
         if member == None:
@@ -107,7 +99,7 @@ class mod_cog(commands.Cog):
         await member.ban(reason=reason)
         ban_log = discord.Embed(description=f'User **' + member.display_name + f'** has been banned by '
                                                                                f'**{ctx.message.author}**.'
-                                                                               f' \n **Reason:** ' + reason,
+                                                                            f' \n **Reason:** ' + reason,
                                 color=0xf30000)
 
         a_log_channel = bot.get_channel(902599258857955348)
@@ -127,6 +119,11 @@ class mod_cog(commands.Cog):
     @commands.command(name='unban', pass_context=True)
     @commands.has_permissions(ban_members=True)
     async def unban(self, ctx, *, member: discord.Member = None):
+        with open('prefixes.json', 'r') as f:
+            prefixes = json.load(f)
+        print(
+            f'{datetime.now()}: {ctx.message.author} executed command - {prefixes[str(ctx.guild.id)]}{ctx.invoked_with}')
+
         banned_user = await ctx.guild.bans()
         member_name, member_discriminator = member.split("#")
         for ban_entry in banned_user:
@@ -158,6 +155,11 @@ class mod_cog(commands.Cog):
     @commands.command(name='mute')
     @commands.has_permissions(kick_members=True)
     async def mute(self, ctx, member: discord.Member = None, *, reason=None):
+        with open('prefixes.json', 'r') as f:
+            prefixes = json.load(f)
+        print(
+            f'{datetime.now()}: {ctx.message.author} executed command - {prefixes[str(ctx.guild.id)]}{ctx.invoked_with}')
+
         log_channel = bot.get_channel(902599258857955348)
         add_role = discord.utils.get(ctx.guild.roles, name='Muted')
 
@@ -203,6 +205,11 @@ class mod_cog(commands.Cog):
     @commands.command(name='unmute', pass_context=True)
     @commands.has_permissions(kick_members=True)
     async def unmute(self, ctx, member: discord.Member):
+        with open('prefixes.json', 'r') as f:
+            prefixes = json.load(f)
+        print(
+            f'{datetime.now()}: {ctx.message.author} executed command - {prefixes[str(ctx.guild.id)]}{ctx.invoked_with}')
+
         muted_role = discord.utils.get(ctx.guild.roles, name='Muted')
         log_channel = bot.get_channel(902599258857955348)
 
@@ -242,6 +249,11 @@ class mod_cog(commands.Cog):
     @commands.command(aliases=["msgclear"])
     @commands.has_permissions(kick_members=True)
     async def clear(self, ctx, amount):
+        with open('prefixes.json', 'r') as f:
+            prefixes = json.load(f)
+        print(
+            f'{datetime.now()}: {ctx.message.author} executed command - {prefixes[str(ctx.guild.id)]}{ctx.invoked_with}')
+
         amount = int(amount)
         await ctx.channel.purge(limit=amount)
         await ctx.send(f"{amount} messages deleted!", delete_after=5)
@@ -250,7 +262,12 @@ class mod_cog(commands.Cog):
     # Check bots ping
     @commands.command()
     async def ping(self, ctx):
-        await ctx.send(f'**Pong!** {round(bot.latency * 1000)}ms ')
+        with open('prefixes.json', 'r') as f:
+            prefixes = json.load(f)
+        print(
+            f'{datetime.now()}: {ctx.message.author} executed command - {prefixes[str(ctx.guild.id)]}{ctx.invoked_with}')
+
+        await ctx.send(f'**Pong!** {round(self.bot.latency * 1000)}ms ')
 
     """
     @commands.command(name='r')
@@ -261,6 +278,11 @@ class mod_cog(commands.Cog):
 
     @commands.command()
     async def changeprefix(self, ctx, prefix):
+        with open('prefixes.json', 'r') as f:
+            prefixes = json.load(f)
+        print(
+            f'{datetime.now()}: {ctx.message.author} executed command - {prefixes[str(ctx.guild.id)]}{ctx.invoked_with}')
+
         with open('../json/prefixes.json', 'r') as f:
             prefixes = json.load(f)
 
@@ -271,4 +293,4 @@ class mod_cog(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(mod_cog(bot))
+    bot.add_cog(cogs(bot))

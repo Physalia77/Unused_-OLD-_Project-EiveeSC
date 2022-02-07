@@ -47,13 +47,18 @@ async def update_bank(user, change=0, mode="Wallet"):
     return bal
 
 
-class casino_cog(commands.Cog):
+class cogs(commands.Cog):
     def init(self, Bot):
         pass
 
     @commands.command(aliases=['stat'])
     @commands.cooldown(1, 4, commands.BucketType.user)
     async def stats(self, ctx):
+        with open('prefixes.json', 'r') as f:
+            prefixes = json.load(f)
+        print(
+            f'{datetime.now()}: {ctx.message.author} executed command - {prefixes[str(ctx.guild.id)]}{ctx.invoked_with}')
+
         await open_account(ctx.author)
         user = ctx.author
         users = await get_bank_data()
@@ -80,6 +85,11 @@ class casino_cog(commands.Cog):
     @commands.command(aliases=['bal'])
     @commands.cooldown(1, 4, commands.BucketType.user)
     async def balance(self, ctx):
+        with open('prefixes.json', 'r') as f:
+            prefixes = json.load(f)
+        print(
+            f'{datetime.now()}: {ctx.message.author} executed command - {prefixes[str(ctx.guild.id)]}{ctx.invoked_with}')
+
         await open_account(ctx.author)
 
         user = ctx.author
@@ -97,6 +107,11 @@ class casino_cog(commands.Cog):
     @commands.command(aliases=['ch'])
     @commands.cooldown(1, 86400, commands.BucketType.user)
     async def chest(self, ctx):
+        with open('prefixes.json', 'r') as f:
+            prefixes = json.load(f)
+        print(
+            f'{datetime.now()}: {ctx.message.author} executed command - {prefixes[str(ctx.guild.id)]}{ctx.invoked_with}')
+
         await open_account(ctx.author)
 
         user = ctx.author
@@ -121,6 +136,11 @@ class casino_cog(commands.Cog):
     @commands.command(aliases=['wit'])
     @commands.cooldown(1, 4, commands.BucketType.user)
     async def withdraw(self, ctx, amount=None):
+        with open('prefixes.json', 'r') as f:
+            prefixes = json.load(f)
+        print(
+            f'{datetime.now()}: {ctx.message.author} executed command - {prefixes[str(ctx.guild.id)]}{ctx.invoked_with}')
+
         await open_account(ctx.author)
 
         if amount is None:
@@ -145,6 +165,11 @@ class casino_cog(commands.Cog):
     @commands.command(aliases=['dep'])
     @commands.cooldown(1, 4, commands.BucketType.user)
     async def deposit(self, ctx, amount=None):
+        with open('prefixes.json', 'r') as f:
+            prefixes = json.load(f)
+        print(
+            f'{datetime.now()}: {ctx.message.author} executed command - {prefixes[str(ctx.guild.id)]}{ctx.invoked_with}')
+
         await open_account(ctx.author)
 
         if amount is None:
@@ -172,27 +197,32 @@ class casino_cog(commands.Cog):
     @commands.command()
     @commands.cooldown(rate=1, per=2)
     async def dice(self, ctx, nr: int = None, bet: int = None):
+        with open('prefixes.json', 'r') as f:
+            prefixes = json.load(f)
+        print(
+            f'{datetime.now()}: {ctx.message.author} executed command - {prefixes[str(ctx.guild.id)]}{ctx.invoked_with}')
+
         user = ctx.author
         users = await get_bank_data()
         n = random.randrange(1, 6)  # Where does it bot_starter and end
         # Errors
-        error = discord.Embed(title=f"Dice_Error {frameinfo.lineno}",
+        error = discord.Embed(title=f"Dice_Error {getframeinfo(currentframe()).lineno}",
                               description="You must pick a number between 1 and 6", color=discord.Color.orange())
-        high_error = discord.Embed(title=f"Dice_Error {frameinfo.lineno}",
+        high_error = discord.Embed(title=f"Dice_Error {getframeinfo(currentframe()).lineno}",
                                    description="The number is too high, it must be between 1 and 6",
                                    color=discord.Color.orange())
-        low_error = discord.Embed(title=f" Dice_Error {frameinfo.lineno}",
+        low_error = discord.Embed(title=f" Dice_Error {getframeinfo(currentframe()).lineno}",
                                   description="You must pick a number between 1 and 6", color=discord.Color.orange())
         # Bet Errors
-        bet_none_error = discord.Embed(title=f"Bet_Error {frameinfo.lineno}",
+        bet_none_error = discord.Embed(title=f"Bet_Error {getframeinfo(currentframe()).lineno}",
                                        description="You must place a bet", color=discord.Color.orange())
-        low_bet_error = discord.Embed(title=f"Bet_Error {frameinfo.lineno}",
+        low_bet_error = discord.Embed(title=f"Bet_Error {getframeinfo(currentframe()).lineno}",
                                       description="The lowest amount you can bet is 10 coins, try to bet 10 coins or more",
                                       color=discord.Color.orange())
-        high_bet_error = discord.Embed(title=f"Bet_Error {frameinfo.lineno}",
+        high_bet_error = discord.Embed(title=f"Bet_Error {getframeinfo(currentframe()).lineno}",
                                        description="Sorry, you can't bet more than 10000 coins",
                                        color=discord.Color.orange())
-        poor_bet_error = discord.Embed(title=f"Bet_Error {frameinfo.lineno}",
+        poor_bet_error = discord.Embed(title=f"Bet_Error {getframeinfo(currentframe()).lineno}",
                                        description="You don't have that much money in your wallet. Fun fact, u are poor",
                                        color=discord.Color.orange())
 
@@ -288,6 +318,11 @@ class casino_cog(commands.Cog):
     @commands.command()
     @commands.cooldown(rate=1, per=4)
     async def slot(self, ctx, bet: int = None):
+        with open('prefixes.json', 'r') as f:
+            prefixes = json.load(f)
+        print(
+            f'{datetime.now()}: {ctx.message.author} executed command - {prefixes[str(ctx.guild.id)]}{ctx.invoked_with}')
+
         user = ctx.author
         users = await get_bank_data()
         slots1 = (
@@ -717,4 +752,4 @@ class casino_cog(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(casino_cog(bot))
+    bot.add_cog(cogs(bot))
