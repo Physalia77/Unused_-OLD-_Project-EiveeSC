@@ -30,6 +30,7 @@ import pyfiglet
 from termcolor import colored
 import schedule
 from sellix import Sellix
+import sqlite3
 
 """Project: Eivee-SC/(Source Code)"""
 
@@ -187,12 +188,6 @@ if __name__ == '__main__':
             bot.load_extension(extension)
         except Exception as error:
             print(colored(f'{format(extension)} cannot be loaded. [{format(error)}]', 'red'))
-    try:
-        print("")
-        products = client.get_products()
-        print("Products loaded")
-    except Sellix.SellixException as e:
-        print(e)
 
     commands_list = [c.name for c in bot.commands]
     print(f'\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=')
@@ -204,5 +199,15 @@ if __name__ == '__main__':
     print(f'\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=')
     print(f'\nCommand List: {commands_list}')
 
+    db = sqlite3.connect('database.sql')
+    cursor = db.cursor()
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS main(
+    guild_id TEXT,
+    msg TEXT,
+    channel.id TEXT
+    )
+    ''')
+
     """bot.loop.create_task((change_status()))"""
-    bot.run('OTAyNjA2MzM2NzgzNjgzNTg1.YXg3qA.Mrm1sqml9rI6y2DEdOzwT6sCMbM')
+    bot.run('OTAyNjA2MzM2NzgzNjgzNTg1.YXg3qA.N081Vf7tcAGj7AyCBjWtj2reDmg')

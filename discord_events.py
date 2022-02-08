@@ -1,4 +1,6 @@
 # Imports
+import sqlite3
+
 from main import *
 
 """
@@ -83,6 +85,7 @@ class bot_starter(commands.Cog):
         print(
             f'\n{datetime.now()}: \nBot logged in as {self.bot.user.name} \n   ID: {self.bot.user.id}\n   Discord.py Version: {discord.__version__} \n Servers: {len(self.bot.guilds)} \n Users: {len(bot.users)}')
         print()
+
     # Member joined server
 
 
